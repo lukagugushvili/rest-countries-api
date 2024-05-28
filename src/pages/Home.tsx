@@ -1,13 +1,14 @@
 import React from "react";
-import styled from "styled-components";
-import { createGlobalStyle } from "styled-components";
 import Header from "../components/Header";
+import Filter from "../components/Filter";
+import { Wrapper } from "../styles/HomeStyles";
 
 const Home = () => {
   return (
-    <>
+    <Wrapper>
       <Header />
-    </>
+      <Filter />
+    </Wrapper>
   );
 };
 
