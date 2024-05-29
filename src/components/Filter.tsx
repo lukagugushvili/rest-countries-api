@@ -1,6 +1,5 @@
 import React from "react";
 import { Container } from "../styles/ContainerStyles";
-import styled from "styled-components";
 import { IoIosSearch } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { FilterCon, InpCon, RegionsCon } from "../styles/FilterConStyles";
