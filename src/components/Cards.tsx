@@ -2,13 +2,18 @@ import React, { useEffect, useState } from "react";
 import { Container } from "../styles/ContainerStyles";
 import { DataType } from "../types/DataTypes";
 import { Card, CardsWrapper, Details } from "../styles/CardsStyles";
+import { ErrorCon } from "../styles/ErrorMsgStyles";
+import { Loader } from "../styles/LoaderStyles";
 
 const Cards = () => {
   const [countries, setCountries] = useState<DataType[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
       const API_URl = "https://restcountries.com/v3.1/all";
+      setIsLoading(true);
       try {
         const res = await fetch(API_URl);
 
@@ -19,12 +24,30 @@ const Cards = () => {
         const data = await res.json();
         setCountries(data);
       } catch (err) {
-        console.log(err);
+        if (err instanceof Error) {
+          setError(err.message);
+        } else {
+          setError("An unknown error occurred");
+        }
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchData();
   }, []);
+
+  if (error) {
+    return (
+      <ErrorCon>
+        <p>Something went wrong! Please try again.</p>
+      </ErrorCon>
+    );
+  }
+
+  if (isLoading) {
+    return <Loader>Loading...</Loader>;
+  }
 
   return (
     <div>
