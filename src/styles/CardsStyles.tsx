@@ -30,6 +30,10 @@ export const Card = styled.div`
     align-items: center;
     text-align: center;
   }
+
+  &:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  }
 `;
 
 export const Details = styled.div`

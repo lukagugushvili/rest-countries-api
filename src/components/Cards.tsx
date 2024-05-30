@@ -3,11 +3,10 @@ import { Container } from "../styles/ContainerStyles";
 import { DataType } from "../types/DataTypes";
 import { Card, CardsWrapper, Details } from "../styles/CardsStyles";
 import { ErrorCon } from "../styles/ErrorMsgStyles";
-import { Loader } from "../styles/LoaderStyles";
-
+import Loader from "../utils/Loader";
 const Cards = () => {
   const [countries, setCountries] = useState<DataType[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -46,7 +45,7 @@ const Cards = () => {
   }
 
   if (isLoading) {
-    return <Loader>Loading...</Loader>;
+    return <Loader />;
   }
 
   return (
