@@ -4,7 +4,11 @@ import { DataType } from "../types/DataTypes";
 import { Card, CardsWrapper, Details } from "../styles/CardsStyles";
 import { ErrorCon } from "../styles/ErrorMsgStyles";
 import Loader from "../utils/Loader";
+import { useNavigate } from "react-router-dom";
+
 const Cards = () => {
+  const navigate = useNavigate();
+
   const [countries, setCountries] = useState<DataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +52,10 @@ const Cards = () => {
     return <Loader />;
   }
 
+  const handleSeeAbout = (id: string) => {
+    navigate(`/about/:${id}`);
+  };
+
   return (
     <div>
       <Container>
@@ -57,7 +65,10 @@ const Cards = () => {
             const { population, region, capital } = country;
 
             return (
-              <Card key={country.cca2}>
+              <Card
+                key={country.cca2}
+                onClick={() => handleSeeAbout(country.cca2)}
+              >
                 <img src={country.flags.png} alt={common} />
                 <Details>
                   <h2>{common}</h2>
