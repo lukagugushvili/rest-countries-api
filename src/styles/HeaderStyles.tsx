@@ -1,11 +1,13 @@
 import styled from "styled-components";
+import { ModeType } from "../types/ModePropType";
 
-export const HeaderCon = styled.header`
+export const HeaderCon = styled.header<ModeType>`
   box-shadow: 0px 2px 4px 0px #0000000e;
-  background-color: #ffffff;
+  background-color: ${({ $mode }) => ($mode ? "#2B3844" : "#ffffff")};
+  transition: background-color 0.3s ease;
 `;
 
-export const HeaderBox = styled.div`
+export const HeaderBox = styled.div<ModeType>`
   padding: 1rem;
   display: flex;
   justify-content: space-between;
@@ -13,7 +15,8 @@ export const HeaderBox = styled.div`
   font-size: 24px;
 
   & h1 {
-    color: #111517;
+    color: ${({ $mode }) => ($mode ? "#FFFFFF" : "#111517")};
+    transition: color 0.3s ease;
   }
 
   @media (max-width: 700px) {
@@ -23,7 +26,7 @@ export const HeaderBox = styled.div`
   }
 `;
 
-export const ModeBox = styled.div`
+export const ModeBox = styled.div<ModeType>`
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -31,7 +34,8 @@ export const ModeBox = styled.div`
 
   & p {
     font-weight: 600;
-    color: #111517;
+    color: ${({ $mode }) => ($mode ? "#FFFFFF" : "#111517")};
+    transition: color 0.3s ease;
   }
 
   @media (max-width: 700px) {

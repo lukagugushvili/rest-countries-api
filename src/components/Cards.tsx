@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDataContext } from "../context/DataContext";
 
 const Cards = () => {
-  const { countries } = useDataContext();
+  const { countries, mode } = useDataContext();
   const navigate = useNavigate();
 
   const handleSeeAbout = (id: string) => {
@@ -22,11 +22,12 @@ const Cards = () => {
 
             return (
               <Card
+                $mode={mode}
                 key={country.cca2}
                 onClick={() => handleSeeAbout(country.cca2)}
               >
                 <img src={country.flags.png} alt={common} />
-                <Details>
+                <Details $mode={mode}>
                   <h2>{common}</h2>
                   <h3>
                     Population:

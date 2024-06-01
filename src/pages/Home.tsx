@@ -13,6 +13,7 @@ const Home = () => {
   const [countries, setCountries] = useState<DataType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [mode, setMode] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -53,18 +54,25 @@ const Home = () => {
     return <Loader />;
   }
 
+  const handleChangeMode = () => {
+    setMode((prevMode) => !prevMode);
+    console.log(mode);
+  };
+
   const DataContextValue: DataContextType = {
     countries,
+    mode,
+    handleChangeMode,
   };
 
   return (
-    <Wrapper>
-      <Header />
-      <DataContext.Provider value={DataContextValue}>
+    <DataContext.Provider value={DataContextValue}>
+      <Wrapper $mode={mode}>
+        <Header />
         <Filter />
         <Cards />
-      </DataContext.Provider>
-    </Wrapper>
+      </Wrapper>
+    </DataContext.Provider>
   );
 };
 
