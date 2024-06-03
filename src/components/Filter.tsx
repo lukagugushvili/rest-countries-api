@@ -1,34 +1,44 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Container } from "../styles/ContainerStyles";
 import { IoIosSearch } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
-import {
-  FilterCon,
-  InpCon,
-  RegionsBox,
-  RegionsCon,
-} from "../styles/FilterConStyles";
+import { FilterCon, InpCon } from "../styles/FilterConStyles";
 import { useDataContext } from "../context/DataContext";
+import RegionFilter from "./_atoms/RegionFilter";
 
 const Filter = () => {
-  const { mode, countries } = useDataContext();
+  const { mode, countries, setResult } = useDataContext();
 
   const [regions, setRegions] = useState<string[]>([]);
-  const [show, setShow] = useState<boolean>(false);
+  const [inpValue, setInpValue] = useState<string>("");
 
   useEffect(() => {
-    const uniqueCountry: string[] = [];
+    setResult(countries);
+  }, [countries, setResult]);
 
-    countries.forEach((el) => {
-      if (!uniqueCountry.includes(el.region)) {
-        uniqueCountry.push(el.region);
+  const searchData = useCallback(
+    (value: string) => {
+      if (value === "") {
+        setResult(countries);
+      } else {
+        const results = countries.filter((reg) =>
+          reg.name.common.toLowerCase().includes(value.toLowerCase())
+        );
+        setResult(results);
       }
-    });
+    },
+    [countries, setResult]
+  );
 
-    uniqueCountry.sort((a, b) => a.length - b.length);
+  const handleChangeValues = (value: string) => {
+    setInpValue(value);
+    searchData(value);
+  };
 
-    setRegions(uniqueCountry);
-  }, [countries]);
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      searchData(inpValue);
+    }
+  };
 
   return (
     <div>
@@ -36,29 +46,15 @@ const Filter = () => {
         <FilterCon>
           <InpCon $mode={mode}>
             <IoIosSearch />
-            <input type="text" placeholder="Search for a country..." />
+            <input
+              type="text"
+              value={inpValue}
+              placeholder="Search for a country..."
+              onChange={(e) => handleChangeValues(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
           </InpCon>
-          <div>
-            <RegionsCon
-              $mode={mode}
-              $show={show}
-              onClick={() => setShow(!show)}
-            >
-              <p>Filter by Region</p>
-              <IoIosArrowForward />
-            </RegionsCon>
-            {show && (
-              <RegionsBox $mode={mode} $show={show}>
-                <ul>
-                  {regions.map((region, index) => (
-                    <li key={index}>
-                      <p>{region}</p>
-                    </li>
-                  ))}
-                </ul>
-              </RegionsBox>
-            )}
-          </div>
+          <RegionFilter setRegions={setRegions} regions={regions} />
         </FilterCon>
       </Container>
     </div>

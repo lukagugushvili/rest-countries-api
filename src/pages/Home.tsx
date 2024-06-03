@@ -14,6 +14,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [mode, setMode] = useState<boolean>(false);
+  const [result, setResult] = useState<DataType[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,13 +57,14 @@ const Home = () => {
 
   const handleChangeMode = () => {
     setMode((prevMode) => !prevMode);
-    console.log(mode);
   };
 
   const DataContextValue: DataContextType = {
     countries,
+    result,
     mode,
     handleChangeMode,
+    setResult,
   };
 
   return (

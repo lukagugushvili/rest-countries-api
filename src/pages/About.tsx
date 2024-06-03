@@ -54,7 +54,6 @@ const About = () => {
 
   return (
     <div>
-      <Header />
       {country && (
         <div>
           <h1>{country.name.common}</h1>

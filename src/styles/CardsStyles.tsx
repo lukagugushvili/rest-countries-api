@@ -25,6 +25,7 @@ export const Card = styled.div<ModeType>`
     flex: 1;
     width: 100%;
     height: 50%;
+    object-fit: cover;
     border-radius: 5px 5px 0px 0px;
   }
 
@@ -44,19 +45,18 @@ export const Details = styled.div<ModeType>`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: all 0.3s ease;
 
   & h2 {
     padding: 15px 0 10px 0;
     font-size: 18px;
     color: ${({ $mode }) => ($mode ? "#FFFFFF" : "#111517")};
-    transition: color 0.3s ease;
   }
 
   & h3 {
     font-size: 14px;
     font-weight: 600;
     color: ${({ $mode }) => ($mode ? "#FFFFFF" : "#111517")};
-    transition: color 0.3s ease;
 
     & span {
       padding-left: 10px;
@@ -64,7 +64,6 @@ export const Details = styled.div<ModeType>`
       font-weight: 300;
       font-weight: 600;
       opacity: ${({ $mode }) => ($mode ? "0.7" : "1")};
-      transition: opacity 0.3s ease;
     }
   }
 `;

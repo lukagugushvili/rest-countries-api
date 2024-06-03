@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDataContext } from "../context/DataContext";
 
 const Cards = () => {
-  const { countries, mode } = useDataContext();
+  const { result, mode } = useDataContext();
   const navigate = useNavigate();
 
   const handleSeeAbout = (id: string) => {
@@ -16,7 +16,7 @@ const Cards = () => {
     <div>
       <Container>
         <CardsWrapper>
-          {countries.map((country) => {
+          {result.map((country) => {
             const { common } = country.name;
             const { population, region, capital } = country;
 
